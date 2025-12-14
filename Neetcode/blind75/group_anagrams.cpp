@@ -2,7 +2,7 @@
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        map<vector<int>, vector<string>> anagrams;
+        unordered_map<string, vector<string>> anagrams;
         for (const string& s : strs) {
             vector<int> charCount(26, 0);
             for (char c : s) {
