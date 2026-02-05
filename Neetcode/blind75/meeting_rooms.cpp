@@ -19,7 +19,7 @@ public:
         }
         sort(intervals.begin(), intervals.end(), [](const Interval& a, const Interval& b) {
             return a.start<b.start;
-        });
+        c});
         Interval last = intervals[0];
         for(int i=1; i<n; i++) {
             if(last.end>intervals[i].start) {

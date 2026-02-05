@@ -20,4 +20,4 @@ public:
         result.push_back(last);
         return result;
     }
-};
+};non
