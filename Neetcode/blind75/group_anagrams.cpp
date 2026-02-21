@@ -8,7 +8,11 @@ public:
             for (char c : s) {
                 charCount[c - 'a']++;
             }
-            anagrams[charCount].push_back(s);
+            string key;
+            for (int count : charCount) {
+                key += to_string(count) + "#";  
+            }
+            anagrams[key].push_back(s);
         }
         vector<vector<string>> result;
         for (auto& entry : anagrams) {

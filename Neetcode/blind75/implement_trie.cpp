@@ -1,56 +1,50 @@
 class TrieNode {
     public:
-    bool EndofWord;
-    unordered_map<char, TrieNode*> children;
-    TrieNode() : EndofWord(false) {};
+        vector<TrieNode*> children;
+        bool EndOfWord;
+        TrieNode() {
+            children = vector<TrieNode*>(26, nullptr);
+            EndOfWord = false;
+        }
 };
 
-class Trie {
-private:
-    TrieNode* root;    
+class PrefixTree {
 public:
-    Trie() {
+    TrieNode* root;
+    PrefixTree() { 
         root = new TrieNode();
     }
     
     void insert(string word) {
-        TrieNode* node = root;
+        TrieNode* cur = root;
         for(char c:word) {
-            if(node->children.count(c)==0) {
-                node->children[c] = new TrieNode();
+            if(cur->children[c-'a']==nullptr) {
+                cur->children[c-'a'] = new TrieNode();
             }
-            node = node->children[c];
+            cur = cur->children[c-'a'];
         }
-        node->EndofWord = true;
+        cur->EndOfWord = true;
     }
     
     bool search(string word) {
-        TrieNode* node = root;
-        for(char c:word) {
-            if(node->children.count(c)==0) {
+        TrieNode* cur = root;
+        for(char c: word) {
+            if(cur->children[c-'a']==nullptr) {
                 return false;
             }
-            node = node->children[c];
+            cur = cur->children[c-'a'];
         }
-        return node->EndofWord;
+        return cur->EndOfWord;
     }
     
     bool startsWith(string prefix) {
-        TrieNode* node = root;
+        TrieNode* cur = root;
         for(char c:prefix) {
-            if(node->children.count(c)==0) {
+            if(cur->children[c-'a']==nullptr) {
                 return false;
             }
-            node = node->children[c];
+            cur = cur->children[c-'a'];
         }
         return true;
     }
 };
-
-/**
- * Your Trie object will be instantiated and called as such:
- * Trie* obj = new Trie();
- * obj->insert(word);
- * bool param_2 = obj->search(word);
- * bool param_3 = obj->startsWith(prefix);
- */
